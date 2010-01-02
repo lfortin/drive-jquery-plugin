@@ -1,9 +1,10 @@
 
-jQuery Drive plugin by Laurent Fortin, released under the terms of the MIT license.
+Drive jQuery plugin by Laurent Fortin, released under the terms of the MIT license.
+(Recommended for jQuery 1.3.x)
 
 
+The Drive jQuery plugin allows you to construct the DOM using basic jQuery selectors, and the "parent > child" operator. It searches for elements, and if none is found, it will attempt to loosely create them. Otherwise, if some are found, they will be returned as usual.
 
-The jQuery Drive plugin allows you to construct the DOM using basic jQuery selectors, and the "parent > child" operator. It searches for elements, and if none is found, it will attempt to loosely create them. Otherwise, if some are found, they will be returned as usual.
 
 For example, let's pretend that an element with id='some_container' exists, but is empty. The following:
 
@@ -12,6 +13,19 @@ $('#some_container div.class1').drive();
 will find the container element, then create a div with a class 'class1', then return the new element so we could do this:
 
 $('#some_container div.class1').drive().doSomethingElse();
+
+
+A callback can also be used. It will be executed if elements have been created:
+
+$('#some_container div.class1').drive(function(event) {
+  
+  // the callback is actually a 'drive:success' custom event, so 'this' represents the new element
+  $(this).doSomething();
+  
+  // 'drive:success' custom event is bound to every created element.
+  // If many levels of elements were created, this can be useful to stop event bubbling.
+  event.stopPropagation();
+});
 
 
 
