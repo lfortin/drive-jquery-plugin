@@ -1,0 +1,18 @@
+
+jQuery Drive plugin by Laurent Fortin, released under the terms of the MIT license.
+
+
+
+The jQuery Drive plugin allows you to construct the DOM using basic jQuery selectors, and the "parent > child" operator. It searches for elements, and if none is found, it will attempt to loosely create them. Otherwise, if some are found, they will be returned as usual.
+
+For example, let's pretend that an element with id='some_container' exists, but is empty. The following:
+
+$('#some_container div.class1').drive();
+
+will find the container element, then create a div with a class 'class1', then return the new element so we could do this:
+
+$('#some_container div.class1').drive().doSomethingElse();
+
+
+
+This is a first temporary README file, and more practical examples will be included in a more detailed documentation.
