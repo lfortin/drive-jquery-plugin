@@ -140,8 +140,19 @@
       
       var self = this;
       
-      // the head "container" element
-      var headContainer = self.$('body');
+      // prepare the head "container" element
+      var headContainer;
+      if(self.cfg.context.tagName) {
+        // raw DOM element
+        headContainer = self.$(self.cfg.context);
+      } else if(self.$(self.cfg.context).size() > 1) {
+        // array of elements: use the first one
+        headContainer = self.$(self.$(self.cfg.context).get(0));
+      } else {
+        // document or unknown context
+        headContainer = self.$('body');
+      }
+      
       // selector accumulator
       var selectorAcc = [];
       
