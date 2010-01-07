@@ -1,4 +1,3 @@
-
 // Drive jQuery plugin v0.1.0
 
 // Copyright (c) 2009 Laurent Fortin
@@ -142,14 +141,19 @@
       
       // prepare the head "container" element
       var headContainer;
-      if(self.cfg.context.tagName) {
-        // raw DOM element
-        headContainer = self.$(self.cfg.context);
-      } else if(self.$(self.cfg.context).size() > 1) {
+      if(self.$(self.cfg.context).size()) {
         // array of elements: use the first one
-        headContainer = self.$(self.$(self.cfg.context).get(0));
+        var firstNode = self.$(self.cfg.context).get(0);
+        
+        if(firstNode.tagName) {
+          // DOM element
+          headContainer = self.$(firstNode);
+        } else {
+          // not a DOM element
+          headContainer = self.$('body');
+        }
       } else {
-        // document or unknown context
+        // unknown context
         headContainer = self.$('body');
       }
       
