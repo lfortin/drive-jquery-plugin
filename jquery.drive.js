@@ -1,6 +1,6 @@
-// Drive jQuery plugin v0.1.0
+// Drive jQuery plugin v0.2.0
 
-// Copyright (c) 2009 Laurent Fortin
+// Copyright (c) 2009-2010 Laurent Fortin
 // 
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -257,19 +257,7 @@
       // here, we try to figure out which tag to use
       if(obj.tag) return obj.tag;
       
-      // see if a tag is associated with a class
-      /*
-        here we should try other techniques to guess a tag before giving up ...
-      http://snippets.dzone.com/posts/show/3737
-	if (document.styleSheets[0].cssRules)  // Standards Compliant
-        {
-	   thecss = document.styleSheets[0].cssRules;
-        }
-	else
-        {
-        thecss = document.styleSheets[0].rules;  // IE
-        }
-      */
+      // see if a tag is associated with a class ?
       
       return this.cfg.defaultTag;
     },
@@ -319,21 +307,6 @@
       var self = this;
       
       var size = self._elements.size();
-      
-      // with jQuery 1.3.x or higher, we can use jQuery.Event
-      /***
-      var event = (function(eventType) {
-        if(self.$.Event) {
-          //return self.$.extend(event, {drive: self});
-          return {
-            type: eventType,
-            drive: self
-          };
-        } else {
-          return eventType;
-        }
-      })(size ? 'drive:success' : 'drive:failure');
-      ***/
       
       // note: triggered event will bubble all the way through all created DOM elements
       self._elements.trigger((size ? 'drive:success' : 'drive:failure'), [self]);
