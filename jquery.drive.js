@@ -58,6 +58,9 @@
       // default type of DOM element to create
       this.cfg.defaultTag = cfg.defaultTag || 'div';
       
+      // type to be applied to created inputs
+      this.cfg.inputType = cfg.inputType || 'text';
+      
       // attributes to apply
       this.cfg.attr = cfg.attr || {};
       
@@ -276,8 +279,11 @@
       
       var $ = this.$;
       
+      // prepare input type if applicable
+      var inputType = obj._tag.search(/input/i) > -1 ? (' type="' + this.cfg.inputType + '"') : '';
+      
       // create DOM element
-      var node = $('<' + obj._tag + ' />');
+      var node = $('<' + obj._tag + inputType + ' />');
       
       // set id if applicable
       if(obj._id) {
