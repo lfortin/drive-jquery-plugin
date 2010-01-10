@@ -61,6 +61,9 @@
       // type to be applied to created inputs
       this.cfg.inputType = cfg.inputType || 'text';
       
+      // method to use when inserting new element
+      this.cfg.insertMethod = cfg.insertMethod || 'append';
+      
       // attributes to apply
       this.cfg.attr = cfg.attr || {};
       
@@ -183,8 +186,14 @@
           } else {
             // the case we need to create new elements
             var node = self.getNode(self.toObj(self._selectorList[i]));
-            // append node inside head container
-            headContainer.append(node);
+            
+            // insert node inside head container
+            if(self.cfg.insertMethod == 'prepend') {
+              headContainer.prepend(node);
+            } else {
+              headContainer.append(node);
+            }
+            
             // current node becomes head container
             headContainer = node;
           }
