@@ -325,9 +325,9 @@
       
       // set css classes if applicable
       if(obj._class) {
-        $.each($.makeArray(obj._class), function() {
-          node.addClass(this);
-        });
+        for(var i = 0, len = obj._class.length; i < len; i++) {
+          node.addClass(obj._class[i]);
+        }
       }
       
       // set inline style if applicable
