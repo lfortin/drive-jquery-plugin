@@ -1,4 +1,4 @@
-// Drive jQuery plugin v0.2.0
+// Drive jQuery plugin v0.8.0
 
 // Copyright (c) 2009-2010 Laurent Fortin
 // 
