@@ -151,9 +151,6 @@
       // get only the 1st selector if multiple
       selector = selector.split(',')[0];
       
-      // remove "parent > child" operator
-      //selector = selector.replace(/\>/, '');
-      
       // prepare selectors list
       self._selectorList = self.$.trim(selector).split(' ');
       
@@ -289,17 +286,6 @@
       obj._css = this.cfg.css;
       
       return obj;
-    },
-    
-    // return a tag to use
-    getTag: function(obj) {
-      
-      // here, we try to figure out which tag to use
-      if(obj.tag) return obj.tag;
-      
-      // see if a tag is associated with a class ?
-      
-      return this.cfg.defaultTag;
     },
     
     // return a new DOM element
