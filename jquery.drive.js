@@ -35,14 +35,25 @@
 
 		// internal data
 		_jquerydrive: {
-			options: { }
+			options: {
+				selector: '',
+				context: document,
+				defaultTag: 'div',
+				inputType: 'text',
+				insertMethod: 'append',
+				attr: {},
+				css: {},
+				success: function(){},
+				failure: function(){},
+				except: function(){}
+			}
 		},
 
-		// setter / getter for global options
+		// setter / getter for default options
 		driveOptions: function(options) {
 			// setter
-			if (typeof options == 'object') {
-				this._jquerydrive.options = options;
+			if (typeof options === 'object') {
+				this.extend(this._jquerydrive.options, options);
 			}
 
 			return this._jquerydrive.options;
@@ -59,54 +70,19 @@
 			// the jQuery object
 			this.$ = this.cfg.$ || window.jQuery;
 
-			// get global options object
+			// get default options object
 			var options = this.$.driveOptions();
 
-			// selector
-			this.cfg.selector = cfg.selector || '';
-
-			// context
-			this.cfg.context = cfg.context || options.context || document;
+			// build config object
+			this.$.each(options, function(key, val) {
+				if (!cfg[key]) {
+					cfg[key] = val;
+				}
+			});
 
 			// quick reference of elements
 			this.cfg.elements = cfg.elements || this.$(this.cfg.selector, this.cfg.context);
 			this._elements = this.cfg.elements;
-
-			// default type of DOM element to create
-			this.cfg.defaultTag = cfg.defaultTag || options.defaultTag || 'div';
-
-			// type to be applied to created inputs
-			this.cfg.inputType = cfg.inputType || options.inputType || 'text';
-
-			// method to use when inserting new element
-			this.cfg.insertMethod = cfg.insertMethod || options.insertMethod || 'append';
-
-			// attributes to apply
-			this.cfg.attr = cfg.attr || options.attr || {};
-
-			// inline style to apply
-			this.cfg.css = cfg.css || options.css || {};
-
-			// callback in case all went successful
-			if (this.$.isFunction(cfg.success || options.success)) {
-				this.cfg.success = (cfg.success || options.success);
-			} else {
-				this.cfg.success = function(){ };
-			}
-
-			// callback in case we could not complete the elements creation
-			if (this.$.isFunction(cfg.failure || options.failure)) {
-				this.cfg.failure = (cfg.failure || options.failure);
-			} else {
-				this.cfg.failure = function(){ };
-			}
-
-			// callback in case a JavaScript error was caught
-			if (this.$.isFunction(cfg.except || options.except)) {
-				this.cfg.except = (cfg.except || options.except);
-			} else {
-				this.cfg.except = function(){ };
-			}
 
 			return this;
 		},
@@ -234,6 +210,7 @@
 
 		// convert a selector string into an object
 		toObj: function(selector) {
+
 			var self = this;
 			var $ = self.$;
 			var obj = {};
