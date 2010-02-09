@@ -65,10 +65,10 @@
 		init: function(cfg) {
 
 			// prepare config object!
-			this.cfg = cfg || {'$': window.jQuery};
+			this.cfg = cfg || {'$': $};
 
 			// the jQuery object
-			this.$ = this.cfg.$ || window.jQuery;
+			this.$ = this.cfg.$ || $;
 
 			// get default options object
 			var options = this.$.driveOptions();
@@ -343,7 +343,6 @@
 
 	$.extend({
 		drive: function(arg1, arg2, arg3) {
-			var $ = this;
 
 			// prepare config object
 			var cfg = {};
@@ -382,26 +381,27 @@
 		$.fn.extend({
 			drive: function(arg1) {
 				if (this.selector) {
+
 					// prepare config object
 					var cfg = {};
 
 					// do we have a function of an object?
-					if (jQuery.isFunction(arg1)) {
+					if ($.isFunction(arg1)) {
 						cfg.success = arg1;
 					} else if (typeof arg1 == 'object') {
 						cfg = arg1;
 					}
 
 					// force these parameters
-					jQuery.extend(cfg, {
+					$.extend(cfg, {
 						'selector': this.selector,
 						'context': this.context,
-						'$': jQuery,
+						'$': $,
 						'elements': this
 					});
 
 					// return jQuery object using DriveClass
-					return new jQuery.DriveClass(cfg).exec().getElements();
+					return new $.DriveClass(cfg).exec().getElements();
 				}
 				return this;
 			}
