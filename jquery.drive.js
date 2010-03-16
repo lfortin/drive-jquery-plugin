@@ -220,9 +220,9 @@
 
 			// match cases taken from the Sizzle Selector Engine
 			var _match = {
-				ID: /#((?:[\w\u00c0-\uFFFF-]|\\.)+)/,
-				CLASS: /\.((?:[\w\u00c0-\uFFFF-]|\\.)+)/,
-				TAG: /^((?:[\w\u00c0-\uFFFF\*-]|\\.)+)/
+				ID: /#((?:[\w\u00c0-\uFFFF\-]|\\.)+)/,
+				CLASS: /\.((?:[\w\u00c0-\uFFFF\-]|\\.)+)/,
+				TAG: /^((?:[\w\u00c0-\uFFFF\*\-]|\\.)+)/
 			};
 			// all match results
 			var _result = {};
@@ -327,7 +327,7 @@
 
 				// exception occurred
 				return false;
-			};
+			}
 
 			// no exception
 			return true;
@@ -377,7 +377,7 @@
 	});
 
 	// check for jQuery 1.3.x or higher
-	if($('#_selector_test').selector) {
+	if ($('#_selector_test').selector) {
 		$.fn.extend({
 			drive: function(arg1) {
 				if (this.selector) {
@@ -406,6 +406,6 @@
 				return this;
 			}
 		});
-	};
+	}
 
 })(jQuery);
