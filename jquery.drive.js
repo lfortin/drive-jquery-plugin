@@ -168,6 +168,9 @@
 			// selector accumulator
 			var selectorAcc = [];
 
+			// "first created element"
+			var firstCreated;
+
 			// build the structure
 			for (var i = 0, len = self._selectorList.length; i < len; i++) {
 				if (self._selectorList[i]) {
@@ -189,6 +192,12 @@
 						// the case we need to create new elements
 						var node = self.getNode(self.toObj(self._selectorList[i]));
 
+						// prepare node for effect
+						if (self.cfg.showMethod && !firstCreated) {
+							node.css('display', 'none');
+							firstCreated = node;
+						}
+
 						// insert node inside head container
 						if (self.cfg.insertMethod == 'prepend') {
 							headContainer.prepend(node);
@@ -200,6 +209,13 @@
 						headContainer = node;
 					}
 				}
+			}
+
+			// apply effect using firstCreated
+			if (self.cfg.showMethod) {
+				self.tryCatch(function() {
+					self.runMethod(firstCreated, self.$.makeArray(self.cfg.showMethod));
+				}) || firstCreated.show();
 			}
 
 			// reset elements reference
@@ -302,6 +318,22 @@
 			return node;
 		},
 
+		// run jQuery method on given element(s)
+		runMethod: function(elements, args) {
+
+			// args => [method, arg1, arg2, ...]
+
+			if (args && args.length) {
+				var _args = [];
+				for (var i = 1, len = args.length; i < len; i++) {
+					_args.push(args[i]);
+				}
+				elements[args[0]].apply(elements, _args);
+			}
+
+			return this;
+		},
+
 		// run callback if applicable
 		runCallback: function( ) {
 
@@ -322,7 +354,7 @@
 			} catch(err) {
 				// bind this._elements context to except callback
 				this._elements._jquerydrive_except = this.cfg.except;
-				// execute callback with cfg object and js runtime error object
+				// execute callback with js runtime error and self object
 				this._elements._jquerydrive_except(err, this);
 
 				// exception occurred
@@ -385,9 +417,11 @@
 					// prepare config object
 					var cfg = {};
 
-					// do we have a function of an object?
+					// do we have a function, a string or an object?
 					if ($.isFunction(arg1)) {
 						cfg.success = arg1;
+					} else if (typeof arg1 == 'string') {
+						cfg.showMethod = arguments;
 					} else if (typeof arg1 == 'object') {
 						cfg = arg1;
 					}
