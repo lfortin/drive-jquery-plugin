@@ -64,27 +64,33 @@
 		// initialize all config
 		init: function(cfg) {
 
+			var self = this;
+
 			// prepare config object!
-			this.cfg = cfg || {'$': $};
+			self.cfg = cfg || {'$': $};
 
 			// the jQuery object
-			this.$ = this.cfg.$ || $;
+			self.$ = self.cfg.$ || $;
 
-			// get default options object
-			var options = this.$.driveOptions();
+			// merge config object with default options
+			self.cfg = self.$.extend({}, self.$.driveOptions(), self.cfg);
 
-			// build config object
-			this.$.each(options, function(key, val) {
-				if (!cfg[key]) {
-					cfg[key] = val;
+			// fix input type if applicable
+			var attr = {};
+			self.$.each(self.cfg.attr, function(key, val) {
+				if (key.search(/type/i) > -1) {
+					self.cfg.inputType = val;
+				} else {
+					attr[key] = val;
 				}
 			});
+			self.cfg.attr = attr;
 
 			// quick reference of elements
-			this.cfg.elements = cfg.elements || this.$(this.cfg.selector, this.cfg.context);
-			this._elements = this.cfg.elements;
+			self.cfg.elements = cfg.elements || self.$(self.cfg.selector, self.cfg.context);
+			self._elements = self.cfg.elements;
 
-			return this;
+			return self;
 		},
 
 		// main method
