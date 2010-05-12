@@ -296,15 +296,15 @@
 			// create DOM element
 			var node = $('<' + obj._tag + inputType + ' />');
 
-			// set id if applicable
-			if (obj._id) {
-				node.attr('id', obj._id);
-			}
-
 			// set attributes
 			$.each(obj._attr, function(key, val) {
 				node.attr(key, val);
 			});
+
+			// set id if applicable
+			if (obj._id) {
+				node.attr('id', obj._id);
+			}
 
 			// set css classes if applicable
 			if (obj._class) {
