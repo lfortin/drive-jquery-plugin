@@ -25,16 +25,14 @@
 
 (function($) {
 
-	/**** main class for Drive jQuery plugin ****/
-
 	$.extend({
-		// main class
-		DriveClass: function(cfg) {
-			this.init(cfg);
-		},
-
 		// internal data
 		_jquerydrive: {
+			// main class
+			Drive: function(cfg) {
+				this.init(cfg);
+			},
+			// default options
 			options: {
 				selector: '',
 				context: document,
@@ -60,7 +58,9 @@
 		}
 	});
 
-	$.extend($.DriveClass.prototype, {
+	/**** Drive class methods ****/
+
+	$.extend($._jquerydrive.Drive.prototype, {
 		// initialize all config
 		init: function(cfg) {
 
@@ -377,7 +377,7 @@
 		}
 	});
 
-	/**** end of main class for Drive jQuery plugin ****/
+	/**** end of Drive class methods ****/
 
 	$.extend({
 		drive: function(arg1, arg2, arg3) {
@@ -409,8 +409,8 @@
 				});
 			}
 
-			// return jQuery object using DriveClass
-			return new $.DriveClass(cfg).exec().getElements();
+			// return jQuery object using Drive class
+			return new $._jquerydrive.Drive(cfg).exec().getElements();
 		}
 	});
 
@@ -440,8 +440,8 @@
 						'elements': this
 					});
 
-					// return jQuery object using DriveClass
-					return new $.DriveClass(cfg).exec().getElements();
+					// return jQuery object using Drive class
+					return new $._jquerydrive.Drive(cfg).exec().getElements();
 				}
 				return this;
 			}
