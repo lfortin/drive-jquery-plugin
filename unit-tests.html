@@ -30,41 +30,57 @@ function run_tests() {
   
   try {
   
+  // test 0
+  log_test(0, "$.drive({selector: '#container-right #div-0.middle-size.bg-green'})");
+  $.drive({
+    selector: '#container-right #div-0.middle-size.bg-green',
+    success: function() {
+      $('#test-0 span').css('color', 'green').html('success!');
+    }
+  });
   // test 1
-  log_test(1, "$.drive('#container-right div#div-1.middle-size.bg-red')");
-  $.drive('#container-right div#div-1.middle-size.bg-red', function() {
-    $('#test-1 span').css('color', 'green').html('success!');
+  log_test(1, "$.drive({selector: '#div-1.middle-size.bg-blue', context: '#container-right'})");
+  $.drive({
+    selector: 'div#div-1.middle-size.bg-blue',
+    context: '#container-right',
+    success: function() {
+      $('#test-1 span').css('color', 'green').html('success!');
+    }
   });
   // test 2
-  log_test(2, "$.drive('#div-2.middle-size.bg-green', $('#container-right'))");
-  $.drive('#div-2.middle-size.bg-green', $('#container-right'), function() {
+  log_test(2, "$.drive('#container-right div#div-2.middle-size.bg-red')");
+  $.drive('#container-right div#div-2.middle-size.bg-red', function() {
     $('#test-2 span').css('color', 'green').html('success!');
   });
-  
   // test 3
-  log_test(3, "$('#container-right div#div-3.middle-size.bg-blue').drive( )");
-  $('#container-right div#div-3.middle-size.bg-blue').drive(function() {
+  log_test(3, "$.drive('#div-3.middle-size.bg-green', $('#container-right'))");
+  $.drive('#div-3.middle-size.bg-green', $('#container-right'), function() {
     $('#test-3 span').css('color', 'green').html('success!');
   });
   // test 4
-  log_test(4, "$('#div-4.middle-size.bg-red', $('#container-right')).drive( )");
-  $('#div-4.middle-size.bg-red', $('#container-right')).drive(function() {
+  log_test(4, "$('#container-right div#div-4.middle-size.bg-blue').drive( )");
+  $('#container-right div#div-4.middle-size.bg-blue').drive(function() {
     $('#test-4 span').css('color', 'green').html('success!');
   });
   // test 5
-  log_test(5, "$('#div-5.middle-size.bg-green span', $('#container-right').get(0)).drive( )");
-  $('#div-5.middle-size.bg-green span', $('#container-right').get(0)).drive(function() {
+  log_test(5, "$('#div-5.middle-size.bg-red', $('#container-right')).drive( )");
+  $('#div-5.middle-size.bg-red', $('#container-right')).drive(function() {
     $('#test-5 span').css('color', 'green').html('success!');
   });
   // test 6
-  log_test(6, "$('#container-right #div-6.middle-size.bg-blue > span').drive( )");
-  $('#container-right #div-6.middle-size.bg-blue > span').drive(function() {
+  log_test(6, "$('#div-6.middle-size.bg-green span', $('#container-right').get(0)).drive( )");
+  $('#div-6.middle-size.bg-green span', $('#container-right').get(0)).drive(function() {
     $('#test-6 span').css('color', 'green').html('success!');
   });
   // test 7
-  log_test(7, "$('#container-right #div-7.middle-size.bg-red > form > input').drive( )");
-  $('#container-right #div-7.middle-size.bg-red > form > input').drive(function() {
+  log_test(7, "$('#container-right #div-7.middle-size.bg-blue > span').drive( )");
+  $('#container-right #div-7.middle-size.bg-blue > span').drive(function() {
     $('#test-7 span').css('color', 'green').html('success!');
+  });
+  // test 8
+  log_test(8, "$('#container-right #div-8.middle-size.bg-red > form > input').drive( )");
+  $('#container-right #div-8.middle-size.bg-red > form > input').drive(function() {
+    $('#test-8 span').css('color', 'green').html('success!');
   });
   
   } catch(e) {
@@ -84,7 +100,7 @@ Your browser must have JavaScript enabled to run the unit tests.
 </noscript>
 
 <style type="text/css">
-.big-container { float: left; width: 500px; min-height: 300px; }
+.big-container { float: left; width: 550px; min-height: 300px; }
 
 .bg-red { background-color: #FF0000; }
 .bg-green { background-color: #00FF00; }
