@@ -35,12 +35,13 @@
 			// default options
 			options: {
 				selector: '',
-				context: document,
+				context: undefined,
 				defaultTag: 'div',
 				inputType: 'text',
 				insertMethod: 'append',
 				attr: {},
 				css: {},
+				force: false,
 				success: function(){},
 				failure: function(){},
 				except: function(){}
@@ -168,6 +169,9 @@
 				}
 			} else {
 				// unknown context
+				if (!self.cfg.force) {
+					throw('unknown or unexpected context; use option force:true to ignore.');
+				}
 				headContainer = self.$('body');
 			}
 
@@ -387,16 +391,17 @@
 
 			if (typeof arg1 == 'object') {
 				cfg = arg1;
-				var elements = $(cfg.selector, cfg.context);
+				var context = cfg.context || document;
 
 				// force these parameters
 				$.extend(cfg, {
+					'context': context,
 					'$': $,
-					'elements': elements
+					'elements': $(cfg.selector, context)
 				});
 			} else {
-				// var selector = arg1;
 				var context = $.isFunction(arg2) ? document : arg2;
+				context = context || document;
 				var callback = $.isFunction(arg2) ? arg2 : arg3;
 
 				// force these parameters
