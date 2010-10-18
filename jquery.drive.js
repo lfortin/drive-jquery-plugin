@@ -39,6 +39,7 @@
 				defaultTag: 'div',
 				inputType: 'text',
 				insertMethod: 'append',
+				html: undefined,
 				attr: {},
 				css: {},
 				force: false,
@@ -221,15 +222,18 @@
 				}
 			}
 
+			// reset elements reference
+			self._elements = self.$(self.cfg.selector, self.cfg.context);
+
+			// set html content to innermost element (if applicable)
+			self._elements.html(self.cfg.html);
+
 			// apply effect using firstCreated
 			if (self.cfg.showMethod) {
 				self.tryCatch(function() {
 					self.runMethod(firstCreated, self.$.makeArray(self.cfg.showMethod));
 				}) || firstCreated.show();
 			}
-
-			// reset elements reference
-			self._elements = self.$(self.cfg.selector, self.cfg.context);
 
 			return self;
 		},
