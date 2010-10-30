@@ -23,7 +23,9 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
-(function($) {
+(function($, window) {
+
+	var document = window.document;
 
 	$.extend({
 		// internal data
@@ -396,9 +398,11 @@
 			// prepare config object
 			var cfg = {};
 
+			var context;
+
 			if (typeof arg1 == 'object') {
 				cfg = arg1;
-				var context = cfg.context || document;
+				context = cfg.context || document;
 
 				// force these parameters
 				$.extend(cfg, {
@@ -407,7 +411,7 @@
 					'elements': $(cfg.selector, context)
 				});
 			} else {
-				var context = $.isFunction(arg2) ? document : arg2;
+				context = $.isFunction(arg2) ? document : arg2;
 				context = context || document;
 				var callback = $.isFunction(arg2) ? arg2 : arg3;
 
@@ -460,4 +464,4 @@
 		});
 	}
 
-})(jQuery);
+})(jQuery, window);
