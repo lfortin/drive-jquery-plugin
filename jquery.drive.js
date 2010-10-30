@@ -299,7 +299,10 @@
 			var $ = this.$;
 
 			// prepare input type if applicable
-			var inputType = obj._tag.search(/input/i) > -1 ? (' type="' + this.cfg.inputType + '"') : '';
+			var inputType = '';
+			if (obj._tag.search(/input/i) > -1) {
+				inputType = ' type="' + this.cfg.inputType + '"';
+			}
 
 			// create DOM element
 			var node = $('<' + obj._tag + inputType + ' />');
