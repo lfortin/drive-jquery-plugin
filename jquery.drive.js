@@ -371,10 +371,8 @@
 			try {
 				fn();
 			} catch(err) {
-				// bind this._elements context to except callback
-				this._elements._jquerydrive_except = this.cfg.except;
 				// execute callback with js runtime error and self object
-				this._elements._jquerydrive_except(err, this);
+				this.cfg.except.call(this._elements, err, this);
 
 				// exception occurred
 				return false;
