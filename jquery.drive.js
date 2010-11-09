@@ -65,6 +65,8 @@
 	/**** Drive class methods ****/
 
 	$.extend($._jquerydrive.Drive.prototype, {
+		version: '1.1.0',
+
 		// initialize all config
 		init: function(cfg) {
 
