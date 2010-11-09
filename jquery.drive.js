@@ -345,11 +345,7 @@
 			// args => [method, arg1, arg2, ...]
 
 			if (args && args.length) {
-				var _args = [];
-				for (var i = 1, len = args.length; i < len; i++) {
-					_args.push(args[i]);
-				}
-				elements[args[0]].apply(elements, _args);
+				elements[args[0]].apply(elements, args.slice(1));
 			}
 
 			return this;
