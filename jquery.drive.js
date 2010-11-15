@@ -41,6 +41,7 @@
 				defaultTag: 'div',
 				inputType: 'text',
 				insertMethod: 'append',
+				showMethod: undefined,
 				html: undefined,
 				attr: {},
 				css: {},
