@@ -312,9 +312,7 @@
 			var node = $('<' + obj._tag + inputType + ' />');
 
 			// set attributes
-			$.each(obj._attr, function(key, val) {
-				node.attr(key, val);
-			});
+			node.attr(obj._attr);
 
 			// set id if applicable
 			if (obj._id) {
@@ -323,9 +321,7 @@
 
 			// set css classes if applicable
 			if (obj._class) {
-				for (var i = 0, len = obj._class.length; i < len; i++) {
-					node.addClass(obj._class[i]);
-				}
+				node.addClass(obj._class.join(' '));
 			}
 
 			// set inline style if applicable
