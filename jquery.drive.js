@@ -1,7 +1,7 @@
-// Drive jQuery plugin v1.1.0
+// Drive jQuery plugin v1.2.0
 // http://github.com/lfortin/drive-jquery-plugin#readme
 
-// Copyright (c) 2009-2010 Laurent Fortin
+// Copyright (c) 2009-2011 Laurent Fortin
 // 
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -66,7 +66,7 @@
 	/**** Drive class methods ****/
 
 	$.extend($._jquerydrive.Drive.prototype, {
-		version: '1.1.0',
+		version: '1.2.0',
 
 		// initialize all config
 		init: function(cfg) {
