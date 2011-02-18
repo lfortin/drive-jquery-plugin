@@ -5,6 +5,7 @@ Drive jQuery plugin - a selector-based DOM builder
 The Drive jQuery plugin allows you to construct the DOM using basic jQuery selectors.
 It searches for elements, and if none is found, it attempts to create them. In any cases where elements have been found or created, they are returned. The plugin officially supports jQuery 1.3.x and later versions.
 
+Only 2KB minified and gzipped.
 
 Downloads:
   http://github.com/lfortin/drive-jquery-plugin/downloads
