@@ -25,7 +25,7 @@
 
 (function($, window) {
 
-	var document = window.document;
+	var document = $('#_dummy').context || window.document;
 
 	$.extend({
 		// internal data
@@ -159,6 +159,7 @@
 		drivePath: function( ) {
 
 			var self = this;
+			var ownerDocument = document;
 
 			// prepare the head "container" element
 			var headContainer;
@@ -167,10 +168,14 @@
 				var firstNode = self.$(self.cfg.context).get(0);
 
 				if (firstNode.tagName) {
-					// DOM element
+					// a DOM element
 					headContainer = self.$(firstNode);
+				} else if(firstNode.nodeType === 9) {
+					// a document
+					ownerDocument = firstNode;
+					headContainer = self.$('body', firstNode);
 				} else {
-					// not a DOM element
+					// something else...
 					headContainer = self.$('body');
 				}
 			} else {
@@ -198,7 +203,7 @@
 					}
 
 					var currentSelector = selectorAcc.join(' ');
-					var currentElements = self.$(currentSelector, self.cfg.context);
+					var currentElements = self.$(currentSelector, firstNode);
 
 					if (currentElements.size()) {
 						// the case we found at least 1 element
@@ -206,7 +211,7 @@
 						headContainer = self.$(currentElements.get(0));
 					} else {
 						// the case we need to create new elements
-						var node = self.getNode(self.toObj(self._selectorList[i]));
+						var node = self.getNode(self.toObj(self._selectorList[i]), ownerDocument);
 
 						// prepare node for effect
 						if (self.cfg.showMethod && !firstCreated) {
@@ -228,7 +233,7 @@
 			}
 
 			// reset elements reference
-			self._elements = self.$(self.cfg.selector, self.cfg.context);
+			self._elements = self.$(self.cfg.selector, firstNode);
 
 			// set html content to innermost element (if applicable)
 			self._elements.html(self.cfg.html);
@@ -299,7 +304,7 @@
 		},
 
 		// return a new DOM element
-		getNode: function(obj) {
+		getNode: function(obj, ownerDocument) {
 
 			var $ = this.$;
 
@@ -310,7 +315,7 @@
 			}
 
 			// create DOM element
-			var node = $('<' + obj._tag + inputType + ' />');
+			var node = $('<' + obj._tag + inputType + ' />', ownerDocument);
 
 			// set attributes
 			node.attr(obj._attr);
