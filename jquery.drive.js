@@ -23,6 +23,16 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
+/* Node.js compliance */
+try {
+	if (module && module.exports) {
+		jQuery = require('jquery');
+		module.exports = jQuery;
+		window = {};
+	}
+} catch(e) {}
+
+
 (function($, window) {
 
 	var document = $('#_dummy').context || window.document;
