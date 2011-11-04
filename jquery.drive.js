@@ -2,7 +2,7 @@
 // http://github.com/lfortin/drive-jquery-plugin#readme
 
 // Copyright (c) 2009-2011 Laurent Fortin
-// 
+//
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
 // "Software"), to deal in the Software without restriction, including
@@ -10,7 +10,7 @@
 // distribute, sublicense, and/or sell copies of the Software, and to
 // permit persons to whom the Software is furnished to do so, subject to
 // the following conditions:
-// 
+//
 // The above copyright notice and this permission notice shall be
 // included in all copies or substantial portions of the Software.
 //
@@ -35,47 +35,35 @@ try {
 
 (function($, window) {
 
-	var document = $('#_dummy').context || window.document;
-
-	$.extend({
-		// internal data
-		_jquerydrive: {
-			// main class
-			Drive: function(cfg) {
-				this.init(cfg);
-			},
-			// default options
-			options: {
-				selector: '',
-				context: undefined,
-				defaultTag: 'div',
-				inputType: 'text',
-				insertMethod: 'append',
-				showMethod: undefined,
-				html: undefined,
-				attr: {},
-				css: {},
-				force: false,
-				success: function(){},
-				failure: function(){},
-				except: function(){}
-			}
+	var tester   = $('#_dummy'),
+	    document = tester.context || window.document,
+	    internal = {
+		// main class
+		Drive: function(cfg) {
+			this.init(cfg);
 		},
-
-		// setter / getter for default options
-		driveOptions: function(options) {
-			// setter
-			if (typeof options === 'object') {
-				this.extend(this._jquerydrive.options, options);
-			}
-
-			return this._jquerydrive.options;
+		// default options
+		options: {
+			selector: '',
+			context: undefined,
+			defaultTag: 'div',
+			inputType: 'text',
+			insertMethod: 'append',
+			showMethod: undefined,
+			html: undefined,
+			attr: {},
+			css: {},
+			force: false,
+			success: function(){},
+			failure: function(){},
+			except: function(){}
 		}
-	});
+	};
+
 
 	/**** Drive class methods ****/
 
-	$.extend($._jquerydrive.Drive.prototype, {
+	$.extend(internal.Drive.prototype, {
 		version: '1.2.0',
 
 		// initialize all config
@@ -401,6 +389,10 @@ try {
 	/**** end of Drive class methods ****/
 
 	$.extend({
+		// setter / getter for default options
+		driveOptions: function(options) {
+			return this.extend(internal.options, typeof options === 'object' ? options : {});
+		},
 		drive: function(arg1, arg2, arg3) {
 
 			// prepare config object
@@ -434,12 +426,12 @@ try {
 			}
 
 			// return jQuery object using Drive class
-			return new $._jquerydrive.Drive(cfg).exec().getElements();
+			return new internal.Drive(cfg).exec().getElements();
 		}
 	});
 
 	// check for jQuery 1.3.x or higher
-	if ($('#_selector_test').selector) {
+	if (tester.selector) {
 		$.fn.extend({
 			drive: function(arg1) {
 				if (this.selector) {
@@ -465,7 +457,7 @@ try {
 					});
 
 					// return jQuery object using Drive class
-					return new $._jquerydrive.Drive(cfg).exec().getElements();
+					return new internal.Drive(cfg).exec().getElements();
 				}
 				return this;
 			}
