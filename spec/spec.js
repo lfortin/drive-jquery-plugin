@@ -1,12 +1,17 @@
 describe("Drive jQuery plugin", function() {
 
   var success         = false,
-      successCallback = function() {
+      element         = undefined,
+      successCallback = function(event) {
                           success = true;
+                          element = this;
+
+                          return false;
                         };
 
   beforeEach(function() {
     success = false;
+    element = undefined;
     $.driveOptions({ defaultTag : 'div' });
   });
 
