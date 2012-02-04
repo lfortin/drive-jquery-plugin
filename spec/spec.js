@@ -2,6 +2,7 @@ describe("Drive jQuery plugin", function() {
 
   var success         = false,
       element         = undefined,
+      trace           = {},
       successCallback = function(event) {
                           success = true;
                           element = this;
@@ -12,6 +13,7 @@ describe("Drive jQuery plugin", function() {
   beforeEach(function() {
     success = false;
     element = undefined;
+    trace   = {};
     $.driveOptions({ defaultTag : 'div' });
   });
 
@@ -127,6 +129,41 @@ describe("Drive jQuery plugin", function() {
       expect($('#container #div-10.middle-size.bg-blue form a').attr('href')).toEqual('#');
 
     });
+
+    it("should propagate success event", function() {
+      $('#container #div-11.middle-size.bg-red').drive();
+      $('#container #div-11.middle-size.bg-red .level1 .level2').drive(function(event, drive) {
+        if($(this).is('#div-11')) {
+          trace.div11 = true;
+        }
+        if($(this).is('div.level1')) {
+          trace.level1 = true;
+        }
+        if($(this).is('div.level2')) {
+          trace.level2 = true;
+        }
+      });
+
+      expect($('#div-11.middle-size.bg-red .level1 .level2').size()).toBeTruthy();
+      expect(trace.div11).toBeFalsy();
+      expect(trace.level1).toBeTruthy();
+      expect(trace.level2).toBeTruthy();
+    });
+
+    it("should call 'except' callback when error thrown", function() {
+      $('#container #div-12.middle-size.bg-green').drive({
+                                                           success : function() {
+                                                                       dummy_call();
+                                                                     },
+                                                           except  : function(e, drive) {
+                                                                       trace.error = true;
+                                                                     }
+                                                         });
+
+      expect($('#div-12.middle-size.bg-green').size()).toBeTruthy();
+      expect(trace.error).toBeTruthy();
+    });
+
 
   });
 
