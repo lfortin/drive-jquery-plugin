@@ -1,0 +1,32 @@
+{
+  "name": "jquery-drive",
+  "description": "A jQuery plugin to construct the DOM using basic jQuery selectors.",
+  "version": "1.2.1",
+  "homepage": "https://github.com/lfortin/drive-jquery-plugin#readme",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/lfortin/drive-jquery-plugin.git"
+  },
+  "author": {
+    "name": "Laurent Fortin",
+    "email": "laurent.fortin@gmail.com",
+    "url": "http://lfortin.github.com"
+  },
+  "main": "./dist/jquery.drive.js",
+  "directories": {
+    "lib": "dist"
+  },
+  "engines": {
+    "node": "*"
+  },
+  "dependencies": {
+    "jquery": ">= 1.3.1"
+  },
+  "keywords": [
+    "DOM",
+    "builder",
+    "jquery"
+  ],
+  "devDependencies": {},
+  "optionalDependencies": {}
+}
