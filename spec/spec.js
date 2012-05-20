@@ -164,6 +164,12 @@ describe("Drive jQuery plugin", function() {
       expect(trace.error).toBeTruthy();
     });
 
+    it("should accept selector and document context", function() {
+      $('#container #div-13.middle-size.bg-blue span', document).drive(successCallback);
+
+      expect(success).toBeTruthy();
+      expect($('#div-13.middle-size.bg-blue span').size()).toBeTruthy();
+    });
 
   });
 
