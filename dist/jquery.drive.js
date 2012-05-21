@@ -26,9 +26,9 @@
 /* Node.js compliance */
 try {
 	if (module && module.exports) {
-		jQuery = require('jquery');
+		var jQuery = require('jquery');
 		module.exports = jQuery;
-		window = {};
+		var window = {};
 	}
 } catch(e) {}
 
