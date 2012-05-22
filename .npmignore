@@ -2,3 +2,5 @@ lib
 spec
 jasmine-tests.html
 unit-tests.html
+jquery.drive.js.old
+jquery.drive.js.new
