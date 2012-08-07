@@ -103,7 +103,7 @@ try {
 
 			var self = this;
 
-			if (!self.cfg.elements.size()) {
+			if (!self.cfg.elements.length) {
 				// proceed!
 				self.tryCatch(function() {
 					self
@@ -161,7 +161,7 @@ try {
 
 			// prepare the head "container" element
 			var headContainer;
-			if (self.$(self.cfg.context).size()) {
+			if (self.$(self.cfg.context).length) {
 				// array of elements: use the first one
 				var firstNode = self.$(self.cfg.context).get(0);
 
@@ -203,7 +203,7 @@ try {
 					var currentSelector = selectorAcc.join(' ');
 					var currentElements = self.$(currentSelector, firstNode);
 
-					if (currentElements.size()) {
+					if (currentElements.length) {
 						// the case we found at least 1 element
 						// if we have many elements, we take the first one
 						headContainer = self.$(currentElements.get(0));
@@ -356,7 +356,7 @@ try {
 
 			var self = this;
 
-			var size = self._elements.size();
+			var size = self._elements.length;
 
 			// note: triggered event will bubble all the way through all created DOM elements
 			self._elements.trigger((size ? 'drive:success' : 'drive:failure'), [self]);
