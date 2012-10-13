@@ -27,6 +27,7 @@
     "builder",
     "jquery"
   ],
+  "license": "MIT",
   "devDependencies": {},
   "optionalDependencies": {}
 }
