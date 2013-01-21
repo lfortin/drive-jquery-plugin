@@ -1,7 +1,7 @@
 {
   "name": "jquery-drive",
   "description": "A jQuery plugin to construct the DOM using basic jQuery selectors.",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "homepage": "https://github.com/lfortin/drive-jquery-plugin#readme",
   "repository": {
     "type": "git",
