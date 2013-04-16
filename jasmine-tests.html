@@ -27,12 +27,12 @@
       var jasmineEnv = jasmine.getEnv();
       jasmineEnv.updateInterval = 1000;
 
-      var trivialReporter = new jasmine.TrivialReporter();
+      var HtmlReporter = new jasmine.HtmlReporter();
 
-      jasmineEnv.addReporter(trivialReporter);
+      jasmineEnv.addReporter(HtmlReporter);
 
       jasmineEnv.specFilter = function(spec) {
-        return trivialReporter.specFilter(spec);
+        return HtmlReporter.specFilter(spec);
       };
 
       var currentWindowOnload = window.onload;
