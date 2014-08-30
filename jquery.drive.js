@@ -430,38 +430,37 @@ try {
 		}
 	});
 
-	// check for jQuery 1.3.x or higher
-	if (tester.selector) {
-		$.fn.extend({
-			drive: function(arg1) {
-				if (this.selector) {
+    $.fn.extend({
+        drive: function(arg1) {
+            if (this.selector && this.context) {
 
-					// prepare config object
-					var cfg = {};
+                // prepare config object
+                var cfg = {};
 
-					// do we have a function, a string or an object?
-					if ($.isFunction(arg1)) {
-						cfg.success = arg1;
-					} else if (typeof arg1 == 'string') {
-						cfg.showMethod = arguments;
-					} else if (typeof arg1 == 'object') {
-						cfg = arg1;
-					}
+                // do we have a function, a string or an object?
+                if ($.isFunction(arg1)) {
+                    cfg.success = arg1;
+                } else if (typeof arg1 == 'string') {
+                    cfg.showMethod = arguments;
+                } else if (typeof arg1 == 'object') {
+                    cfg = arg1;
+                }
 
-					// force these parameters
-					$.extend(cfg, {
-						'selector': this.selector,
-						'context': this.context,
-						'$': $,
-						'elements': this
-					});
+                // force these parameters
+                $.extend(cfg, {
+                    'selector': this.selector,
+                    'context': this.context,
+                    '$': $,
+                    'elements': this
+                });
 
-					// return jQuery object using Drive class
-					return new internal.Drive(cfg).exec().getElements();
-				}
-				return this;
-			}
-		});
-	}
+                // return jQuery object using Drive class
+                return new internal.Drive(cfg).exec().getElements();
+            } else {
+                throw new Error("jQuery(selector).drive( ) not supported for jQuery v" + $().jquery + "; please use jQuery.drive( {selector: '.selector'} ) instead.");
+            }
+            return this;
+        }
+    });
 
 })(jQuery, window);

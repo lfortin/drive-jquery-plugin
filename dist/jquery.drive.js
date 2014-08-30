@@ -103,7 +103,7 @@ try {
 
 			var self = this;
 
-			if (!self.cfg.elements.size()) {
+			if (!self.cfg.elements.length) {
 				// proceed!
 				self.tryCatch(function() {
 					self
@@ -161,7 +161,7 @@ try {
 
 			// prepare the head "container" element
 			var headContainer;
-			if (self.$(self.cfg.context).size()) {
+			if (self.$(self.cfg.context).length) {
 				// array of elements: use the first one
 				var firstNode = self.$(self.cfg.context).get(0);
 
@@ -203,7 +203,7 @@ try {
 					var currentSelector = selectorAcc.join(' ');
 					var currentElements = self.$(currentSelector, firstNode);
 
-					if (currentElements.size()) {
+					if (currentElements.length) {
 						// the case we found at least 1 element
 						// if we have many elements, we take the first one
 						headContainer = self.$(currentElements.get(0));
@@ -356,7 +356,7 @@ try {
 
 			var self = this;
 
-			var size = self._elements.size();
+			var size = self._elements.length;
 
 			// note: triggered event will bubble all the way through all created DOM elements
 			self._elements.trigger((size ? 'drive:success' : 'drive:failure'), [self]);
@@ -430,38 +430,37 @@ try {
 		}
 	});
 
-	// check for jQuery 1.3.x or higher
-	if (tester.selector) {
-		$.fn.extend({
-			drive: function(arg1) {
-				if (this.selector) {
+    $.fn.extend({
+        drive: function(arg1) {
+            if (this.selector && this.context) {
 
-					// prepare config object
-					var cfg = {};
+                // prepare config object
+                var cfg = {};
 
-					// do we have a function, a string or an object?
-					if ($.isFunction(arg1)) {
-						cfg.success = arg1;
-					} else if (typeof arg1 == 'string') {
-						cfg.showMethod = arguments;
-					} else if (typeof arg1 == 'object') {
-						cfg = arg1;
-					}
+                // do we have a function, a string or an object?
+                if ($.isFunction(arg1)) {
+                    cfg.success = arg1;
+                } else if (typeof arg1 == 'string') {
+                    cfg.showMethod = arguments;
+                } else if (typeof arg1 == 'object') {
+                    cfg = arg1;
+                }
 
-					// force these parameters
-					$.extend(cfg, {
-						'selector': this.selector,
-						'context': this.context,
-						'$': $,
-						'elements': this
-					});
+                // force these parameters
+                $.extend(cfg, {
+                    'selector': this.selector,
+                    'context': this.context,
+                    '$': $,
+                    'elements': this
+                });
 
-					// return jQuery object using Drive class
-					return new internal.Drive(cfg).exec().getElements();
-				}
-				return this;
-			}
-		});
-	}
+                // return jQuery object using Drive class
+                return new internal.Drive(cfg).exec().getElements();
+            } else {
+                throw new Error("jQuery(selector).drive( ) not supported for jQuery v" + $().jquery + "; please use jQuery.drive( {selector: '.selector'} ) instead.");
+            }
+            return this;
+        }
+    });
 
 })(jQuery, window);
