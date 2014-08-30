@@ -432,7 +432,7 @@ try {
 
     $.fn.extend({
         drive: function(arg1) {
-            if (this.selector && this.context) {
+            if (this.selector !== undefined && this.context !== undefined) {
 
                 // prepare config object
                 var cfg = {};
