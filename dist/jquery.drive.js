@@ -432,6 +432,9 @@ try {
 
     $.fn.extend({
         drive: function(arg1) {
+            if(this.selector === '' || this.length > 0) {
+                return this;
+            }
             if (this.selector !== undefined && this.context !== undefined) {
 
                 // prepare config object
@@ -459,7 +462,6 @@ try {
             } else {
                 throw new Error("jQuery(selector).drive( ) not supported for jQuery v" + $().jquery + "; please use jQuery.drive( {selector: '.selector'} ) instead.");
             }
-            return this;
         }
     });
 
