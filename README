@@ -7,11 +7,8 @@ It searches for elements, and if none is found, it attempts to create them. In a
 
 Only 2KB minified and gzipped.
 
-Downloads:
-  http://github.com/lfortin/drive-jquery-plugin/downloads
-
 Documentation:
-  http://wiki.github.com/lfortin/drive-jquery-plugin
+  https://github.com/lfortin/drive-jquery-plugin/wiki
 
 License:
   http://www.opensource.org/licenses/mit-license.php
